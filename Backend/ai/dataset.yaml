@@ -1,0 +1,30 @@
+# IndusVision - PPE Detection Dataset Config
+# Dataset: Construction Site Safety Image Dataset (Roboflow, via Kaggle)
+# https://www.kaggle.com/datasets/snehilsanyal/construction-site-safety-image-dataset-roboflow
+#
+# Already downloaded and placed in IndusVision/Data/ with the standard layout:
+#   Data/train/images, Data/train/labels
+#   Data/valid/images, Data/valid/labels
+#   Data/test/images,  Data/test/labels
+#
+# This file lives in IndusVision/Backend/ai/. Dataset is expected at
+# IndusVision/datasets/css (change this path if you stored it elsewhere).
+# If you run train.py from a different working directory, use an ABSOLUTE path instead.
+
+path: ../../datasets/css
+train: train/images
+val: valid/images
+test: test/images
+
+# Class map (from the dataset's own metadata)
+names:
+  0: Hardhat
+  1: Mask
+  2: NO-Hardhat
+  3: NO-Mask
+  4: NO-Safety Vest
+  5: Person
+  6: Safety Cone
+  7: Safety Vest
+  8: machinery
+  9: vehicle

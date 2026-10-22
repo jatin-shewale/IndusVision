@@ -1,0 +1,12 @@
+.git
+**/__pycache__
+**/*.py[cod]
+**/venv
+**/.venv
+**/node_modules
+**/dist
+datasets
+reports
+Worker-Safety/*
+!Worker-Safety/best.pt
+!Worker-Safety/yolov8n.pt

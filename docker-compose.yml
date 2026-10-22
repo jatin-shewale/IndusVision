@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: indusvision_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: Backend/Dockerfile
+    container_name: indusvision_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - backend_logs:/app/logs
+    environment:
+      MONGO_URI: mongodb://mongodb:27017
+      MONGO_DB_NAME: indusvision
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change_this_secret}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.0-flash}
+      FRONTEND_ORIGIN: http://localhost:5173
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: indusvision_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
+  backend_logs:
